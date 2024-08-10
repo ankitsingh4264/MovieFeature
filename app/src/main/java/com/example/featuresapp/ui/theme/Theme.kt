@@ -18,9 +18,11 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = White500,
+    secondary = White200,
+    background = White500,
+    onPrimary = Black500,
+    onSecondary = DarkGray,
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -43,7 +45,7 @@ fun FeaturesAppTheme(
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            if (darkTheme) dynamicDarkColorScheme(context) else lightColorScheme()
         }
 
         darkTheme -> DarkColorScheme

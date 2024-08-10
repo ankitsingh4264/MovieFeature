@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -35,6 +36,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.craft.projectx.data.UsageData
+import com.craft.projectx.presentation.home_screen.HomeScreen
+import com.craft.projectx.utils.DummyUsage
 import com.example.featuresapp.data.Result
 import com.example.featuresapp.ui.theme.FeaturesAppTheme
 import com.example.featuresapp.ui.views.FilterBottomSheet
@@ -63,126 +67,130 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
               val scope = rememberCoroutineScope()
-            if (showBs) {
-                FilterBottomSheet(
-                    yearFilterSelected = viewModel.filters.contains(FilterType.YEAR),
-                    ratingFilterSelected = viewModel.filters.contains(FilterType.RATING),
-
-                    onDismiss = { filterType, applied ->
-                        if (applied && filterType != null) {
-                            viewModel.filters.add(filterType)
-                        } else if (filterType != null) {
-                            viewModel.filters.remove(filterType)
-                        }
-
-                        viewModel.setFilters()
-                        scope.launch {
-                            delay(500)
-                            showBs = false
-                        }
-                    }
-                )
-            }
+//            if (showBs) {
+//                FilterBottomSheet(
+//                    yearFilterSelected = viewModel.filters.contains(FilterType.YEAR),
+//                    ratingFilterSelected = viewModel.filters.contains(FilterType.RATING),
+//
+//                    onDismiss = { filterType, applied ->
+//                        if (applied && filterType != null) {
+//                            viewModel.filters.add(filterType)
+//                        } else if (filterType != null) {
+//                            viewModel.filters.remove(filterType)
+//                        }
+//
+//                        viewModel.setFilters()
+//                        scope.launch {
+//                            delay(500)
+//                            showBs = false
+//                        }
+//                    }
+//                )
+//            }
 
             var gridOn by remember { mutableStateOf(false) }
             FeaturesAppTheme {
                 Scaffold(
-                    floatingActionButton = {
-                        Box(
-                            modifier = Modifier
-                                .background(Color.Black.copy(.4f), shape = CircleShape)
-                                .padding(8.dp)
-                        ) {
-                            val fabImage =
-                                if (gridOn) R.drawable.ic_grid_off else R.drawable.ic_grid_on
-                            Icon(
-                                painter = painterResource(id = fabImage),
-                                contentDescription = null,
-                                modifier = Modifier.clickable {
-                                    gridOn = !gridOn
-                                },
-                            )
-                        }
-
-                    },
+//                    floatingActionButton = {
+//                        Box(
+//                            modifier = Modifier
+//                                .background(Color.Black.copy(.4f), shape = CircleShape)
+//                                .padding(8.dp)
+//                        ) {
+//                            val fabImage =
+//                                if (gridOn) R.drawable.ic_grid_off else R.drawable.ic_grid_on
+//                            Icon(
+//                                painter = painterResource(id = fabImage),
+//                                contentDescription = null,
+//                                modifier = Modifier.clickable {
+//                                    gridOn = !gridOn
+//                                },
+//                            )
+//                        }
+//
+//                    },
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
 
+                    val usage = DummyUsage.dummyUsage
+                    HomeScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        usageData = usage)
 
-                    Column(
-                        modifier = Modifier.padding(innerPadding)
-                    ) {
-
-
-                        Greeting(
-                            name = "Movie Search App",
-                            modifier = Modifier.padding(8.dp)
-                        )
-                        SearchBar(
-                            modifier = Modifier.fillMaxWidth(),
-                            searchFlow, filterClicked = {
-                                showBs = true
-                            },
-                            showFilter = viewModel.currentList.isNotEmpty()
-                        )
-
-                        when (val movieList = viewModel.movieListState.value) {
-                            is Result.Success -> {
-                                MovieVerticalList(
-                                    list = movieList.data,
-                                    modifier = Modifier.padding(top = 20.dp),
-                                    isGrid = gridOn,
-                                    onNextPageCall = {
-                                        viewModel.getSearchedMovies(viewModel.lastSearched, true)
-                                    }
-                                )
-                            }
-
-                            is Result.Error -> {
-                                Box(modifier = Modifier.fillMaxSize()) {
-                                    Column(
-                                        modifier = Modifier.align(Alignment.Center),
-                                        horizontalAlignment = Alignment.CenterHorizontally
-                                    ) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.ic_error),
-                                            contentDescription = "error"
-                                        )
-                                        Text(
-                                            movieList.msg ?: getString(R.string.error_generic),
-                                            modifier = Modifier.padding(top = 15.dp)
-                                        )
-                                    }
-
-                                }
-                            }
-
-                            is Result.Loading -> {
-                                Box(modifier = Modifier.fillMaxSize()) {
-                                    CircularProgressIndicator(Modifier.align(Alignment.Center))
-                                }
-                            }
-
-                            Result.Initial -> {
-                                Box(modifier = Modifier.fillMaxSize()) {
-                                    Text(
-                                        "Welcome Search Something",
-                                        modifier = Modifier
-                                            .padding(top = 15.dp)
-                                            .align(Alignment.Center),
-                                        style = TextStyle(
-                                            fontSize = 20.sp
-                                        )
-                                    )
-                                }
-                            }
-                        }
-
-                    }
+//                    Column(
+//
+//                    ) {
+//
+////
+////                        Greeting(
+////                            name = "Movie Search App",
+////                            modifier = Modifier.padding(8.dp)
+////                        )
+////                        SearchBar(
+////                            modifier = Modifier.fillMaxWidth(),
+////                            searchFlow, filterClicked = {
+////                                showBs = true
+////                            },
+////                            showFilter = viewModel.currentList.isNotEmpty()
+////                        )
+////
+////                        when (val movieList = viewModel.movieListState.value) {
+////                            is Result.Success -> {
+////                                MovieVerticalList(
+////                                    list = movieList.data,
+////                                    modifier = Modifier.padding(top = 20.dp),
+////                                    isGrid = gridOn,
+////                                    onNextPageCall = {
+////                                        viewModel.getSearchedMovies(viewModel.lastSearched, true)
+////                                    }
+////                                )
+////                            }
+////
+////                            is Result.Error -> {
+////                                Box(modifier = Modifier.fillMaxSize()) {
+////                                    Column(
+////                                        modifier = Modifier.align(Alignment.Center),
+////                                        horizontalAlignment = Alignment.CenterHorizontally
+////                                    ) {
+////                                        Icon(
+////                                            painter = painterResource(id = R.drawable.ic_error),
+////                                            contentDescription = "error"
+////                                        )
+////                                        Text(
+////                                            movieList.msg ?: getString(R.string.error_generic),
+////                                            modifier = Modifier.padding(top = 15.dp)
+////                                        )
+////                                    }
+////
+////                                }
+////                            }
+////
+////                            is Result.Loading -> {
+////                                Box(modifier = Modifier.fillMaxSize()) {
+////                                    CircularProgressIndicator(Modifier.align(Alignment.Center))
+////                                }
+////                            }
+////
+////                            Result.Initial -> {
+////                                Box(modifier = Modifier.fillMaxSize()) {
+////                                    Text(
+////                                        "Welcome Search Something",
+////                                        modifier = Modifier
+////                                            .padding(top = 15.dp)
+////                                            .align(Alignment.Center),
+////                                        style = TextStyle(
+////                                            fontSize = 20.sp
+////                                        )
+////                                    )
+////                                }
+////                            }
+////                        }
+//
+//                    }
                 }
             }
         }
-        collectSearchValues()
+//        collectSearchValues()
     }
 
 

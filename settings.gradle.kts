@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Features App"
 include(":app")
+include(":projectX")
