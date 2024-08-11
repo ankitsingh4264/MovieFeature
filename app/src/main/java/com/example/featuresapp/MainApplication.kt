@@ -8,5 +8,11 @@ import java.util.PriorityQueue
 @HiltAndroidApp
 class MainApplication : Application() {
 
+    override fun onCreate() {
+        super.onCreate()
+
+    }
+
+
 }
 

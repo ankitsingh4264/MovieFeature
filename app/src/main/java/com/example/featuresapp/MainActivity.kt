@@ -40,6 +40,9 @@ import com.craft.projectx.data.UsageData
 import com.craft.projectx.presentation.home_screen.HomeScreen
 import com.craft.projectx.utils.DummyUsage
 import com.example.featuresapp.data.Result
+import com.example.featuresapp.projectx.db.AppUsageDb
+import com.example.featuresapp.projectx.db.UsageDao
+import com.example.featuresapp.projectx.db.UsageModel
 import com.example.featuresapp.ui.theme.FeaturesAppTheme
 import com.example.featuresapp.ui.views.FilterBottomSheet
 import com.example.featuresapp.ui.views.FilterType
@@ -53,6 +56,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -60,6 +64,8 @@ class MainActivity : ComponentActivity() {
     private val viewModel by viewModels<SearchViewModel>()
     private val searchFlow = MutableStateFlow<String>("")
     private var showBs by mutableStateOf<Boolean>(false)
+
+    @Inject lateinit var usageDao: UsageDao
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

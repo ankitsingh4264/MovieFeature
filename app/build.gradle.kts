@@ -90,4 +90,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.material3)
 
+    //room db
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
+
 }
