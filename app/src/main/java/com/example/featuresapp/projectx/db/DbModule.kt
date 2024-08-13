@@ -30,4 +30,10 @@ object  DbModule{
     ): UsageDao {
         return appUsageDb.getUsageDao()
     }
+    @Provides
+    fun getAppsDao(
+        appUsageDb: AppUsageDb
+    ):AppsDao{
+        return appUsageDb.getAppsDao()
+    }
 }

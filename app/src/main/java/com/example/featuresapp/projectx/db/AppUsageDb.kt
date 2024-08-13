@@ -5,7 +5,8 @@ import androidx.room.RoomDatabase
 
 
 
-@Database(entities = [UsageModel::class], version = 2, exportSchema = false)
+@Database(entities = [UsageModel::class, AppsModel::class], version = 3, exportSchema = false)
 abstract class AppUsageDb : RoomDatabase() {
    abstract fun getUsageDao(): UsageDao
+   abstract fun getAppsDao(): AppsDao
 }

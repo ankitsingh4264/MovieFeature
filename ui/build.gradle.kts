@@ -70,4 +70,6 @@ dependencies {
     implementation("com.patrykandpatrick.vico:core:2.0.0-alpha.27")
 
     // For the view system.
-    implementation("com.patrykandpatrick.vico:views:2.0.0-alpha.27")}
+    implementation("com.patrykandpatrick.vico:views:2.0.0-alpha.27")
+}
+
