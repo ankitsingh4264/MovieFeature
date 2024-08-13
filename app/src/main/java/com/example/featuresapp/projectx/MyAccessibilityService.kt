@@ -1,16 +1,9 @@
 package com.example.featuresapp.projectx
 
 import android.accessibilityservice.AccessibilityService
-import android.content.Context
 import android.media.AudioManager
-import android.media.session.MediaController
-import android.media.session.MediaSessionManager
-import android.util.Log
 import android.view.accessibility.AccessibilityEvent
-import com.example.featuresapp.projectx.db.AppUsageDb
-import com.example.featuresapp.projectx.db.UsageDao
 import com.example.featuresapp.projectx.repo.AppUsageRepo
-import com.example.featuresapp.projectx.utils.AppUtils
 import com.example.featuresapp.projectx.utils.isPackageNameSupported
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope

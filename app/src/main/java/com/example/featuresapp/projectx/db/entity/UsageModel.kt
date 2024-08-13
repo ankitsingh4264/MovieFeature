@@ -1,10 +1,6 @@
-package com.example.featuresapp.projectx.db
+package com.example.featuresapp.projectx.db.entity
 
-import android.content.ComponentName
-import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.PrimaryKey
-import java.util.Date
 
 
 @Entity(tableName = "UsageModel", primaryKeys = ["packageName","date"])
