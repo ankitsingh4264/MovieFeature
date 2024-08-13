@@ -23,8 +23,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.craft.projectx.UiCallback
 import com.craft.projectx.presentation.home_screen.HomeScreen
 import com.craft.projectx.utils.DummyUsage
-import com.example.featuresapp.projectx.db.AppsModel
-import com.example.featuresapp.projectx.db.UsageDao
+import com.example.featuresapp.projectx.db.entity.AppsModel
+import com.example.featuresapp.projectx.db.dao.UsageDao
 import com.example.featuresapp.projectx.viewmodel.SaveViewModel
 import com.example.featuresapp.ui.theme.FeaturesAppTheme
 import com.example.featuresapp.viewmodel.SearchViewModel
@@ -106,7 +106,7 @@ class MainActivity : ComponentActivity() {
                                 it.isSelected
                                     val appsModel = AppsModel(packageName = it.name,
                                         appName = it.name,
-                                        isSelected = it.isSelected
+                                        isBlocked = it.isSelected
                                         )
                                 lifecycleScope.launch {
                                     saveViewModel.addData(appsModel)

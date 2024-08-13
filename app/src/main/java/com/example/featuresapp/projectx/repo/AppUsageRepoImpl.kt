@@ -1,10 +1,9 @@
 package com.example.featuresapp.projectx.repo
 
-import android.util.Log
-import com.example.featuresapp.projectx.db.AppsDao
-import com.example.featuresapp.projectx.db.AppsModel
-import com.example.featuresapp.projectx.db.UsageDao
-import com.example.featuresapp.projectx.db.UsageModel
+import com.example.featuresapp.projectx.db.dao.AppsDao
+import com.example.featuresapp.projectx.db.entity.AppsModel
+import com.example.featuresapp.projectx.db.dao.UsageDao
+import com.example.featuresapp.projectx.db.entity.UsageModel
 import com.example.featuresapp.projectx.utils.AppUtils
 import com.example.featuresapp.projectx.utils.AppUtils.getTodayAtMidnight
 import kotlinx.coroutines.Dispatchers
@@ -13,8 +12,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AppUsageRepoImpl @Inject constructor(
-     val usageDao: UsageDao,
-     val appsDao: AppsDao
+    val usageDao: UsageDao,
+    val appsDao: AppsDao
 ) : AppUsageRepo{
     //to prevent race updation of data
     private val mutex = Mutex(locked = false)

@@ -2,6 +2,8 @@ package com.example.featuresapp.projectx.db
 
 import android.content.Context
 import androidx.room.Room
+import com.example.featuresapp.projectx.db.dao.AppsDao
+import com.example.featuresapp.projectx.db.dao.UsageDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +35,7 @@ object  DbModule{
     @Provides
     fun getAppsDao(
         appUsageDb: AppUsageDb
-    ):AppsDao{
+    ): AppsDao {
         return appUsageDb.getAppsDao()
     }
 }

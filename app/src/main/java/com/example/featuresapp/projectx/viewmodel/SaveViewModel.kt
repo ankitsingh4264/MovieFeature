@@ -1,7 +1,7 @@
 package com.example.featuresapp.projectx.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.featuresapp.projectx.db.AppsModel
+import com.example.featuresapp.projectx.db.entity.AppsModel
 import com.example.featuresapp.projectx.repo.AppUsageRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
