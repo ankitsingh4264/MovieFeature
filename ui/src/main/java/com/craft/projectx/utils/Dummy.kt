@@ -20,9 +20,13 @@ object DummyUsage {
             time = 7,
             timeUsed = 0.3f
         )
+        val usage3 = UsageData(
+            appName = "Youtube",
+            time = 7,
+            timeUsed = 0.3f
+        )
         usageList.add(usage1)
         usageList.add(usage2)
-
 
         return usageList
     }

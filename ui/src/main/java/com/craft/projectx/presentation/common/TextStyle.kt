@@ -1,5 +1,8 @@
 package com.craft.projectx.presentation.common
 
+import androidx.compose.material3.CardDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -10,13 +13,6 @@ import com.craft.projectx.R
 val fontMontserrat = FontFamily(Font(R.font.montserrat))
 val fontRobotoMonoThin = FontFamily(Font(R.font.roboto_mono_thin))
 val fontRoboto = FontFamily(Font(R.font.roboto))
-
-
-
-val durationTextStyle = TextStyle(
-    fontSize = 20.sp,
-    fontFamily = fontMontserrat
-)
 
 var h1TextStyle = TextStyle(
     fontSize = 24.sp,
@@ -42,27 +38,14 @@ val h4TextStyle = TextStyle(
     fontWeight = FontWeight.SemiBold
 )
 
-val infoDescTextStyle = TextStyle(
+val h5TextStyle = TextStyle(
+    fontSize = 18.sp,
+    fontFamily = fontMontserrat
+)
+
+var h6TextStyle = TextStyle(
     fontSize = 14.sp,
     fontFamily = fontMontserrat
 )
 
-var taskDescTextStyle = TextStyle(
-    fontSize = 12.sp,
-    fontFamily = fontMontserrat
-)
-
-var taskTextStyle = TextStyle(
-    fontSize = 16.sp,
-    fontFamily = fontMontserrat,
-)
-
-var timerTextStyle = TextStyle(
-    fontSize = 42.sp,
-    fontFamily = fontMontserrat
-)
-
-var settingItemTextStyle = TextStyle(
-    fontSize = 18.sp,
-    fontFamily = fontMontserrat,
-)
+val cardBackgroundColor = Color(0xFFF7F2F9)
