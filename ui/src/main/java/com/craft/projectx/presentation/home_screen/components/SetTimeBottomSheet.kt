@@ -3,7 +3,9 @@ package com.craft.projectx.presentation.home_screen.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -46,9 +48,9 @@ fun SetTimeBottomSheet(
                     time = it
                 })
             }
-            onTimeSet(time)
             Box(
-                modifier = Modifier.padding(all = 16.dp)
+                modifier = Modifier
+                    .padding(all = 16.dp)
                     .align(alignment = Alignment.CenterHorizontally)
 
             ) {
@@ -57,6 +59,18 @@ fun SetTimeBottomSheet(
                     color = Color.Black,
                     style = h1TextStyle
                 )
+            }
+
+            Button(
+                onClick = {
+                    onTimeSet(time)
+                    onDismiss.invoke()
+                },
+                Modifier
+                    .padding(all = 8.dp)
+                    .fillMaxWidth()
+            ) {
+                Text(text = "Save")
             }
 
         }
