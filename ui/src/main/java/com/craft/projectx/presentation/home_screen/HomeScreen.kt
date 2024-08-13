@@ -37,7 +37,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.craft.projectx.R
-import com.craft.projectx.UiCallback
+import com.craft.projectx.utils.UiCallback
 import com.craft.projectx.data.UsageData
 import com.craft.projectx.presentation.common.cardBackgroundColor
 import com.craft.projectx.presentation.common.h1TextStyle
@@ -65,7 +65,7 @@ fun HomeScreen(
                     .padding(paddingValues)
             ) {
                 ActiveButtonCard()
-                DailyCapCard()
+                DailyCapCard(uiCallbacks)
                 TimeUsageCard()
                 AppSelectCard(usageData, uiCallbacks)
                 WeeklyGraphCard()
@@ -131,7 +131,7 @@ fun ActiveButtonCard() {
 }
 
 @Composable
-fun DailyCapCard() {
+fun DailyCapCard(uiCallbacks: (UiCallback) -> Unit) {
     var showBs by remember { mutableStateOf(false) }
     var time by remember { mutableStateOf(0f) }
 
@@ -177,7 +177,6 @@ fun DailyCapCard() {
             Button(
                 onClick = {
                     showBs = true
-
                 },
                 Modifier
                     .padding(all = 8.dp)
@@ -189,6 +188,7 @@ fun DailyCapCard() {
             if (showBs) {
                 SetTimeBottomSheet(onTimeSet = {
                     time = it
+                    uiCallbacks(UiCallback.SaveRestrictedTime(time.toLong()))
                 },
                     onDismiss = {
                         showBs = false

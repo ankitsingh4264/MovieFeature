@@ -20,11 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.craft.projectx.UiCallback
+import com.craft.projectx.utils.UiCallback
 import com.craft.projectx.presentation.home_screen.HomeScreen
 import com.craft.projectx.utils.DummyUsage
 import com.example.featuresapp.projectx.db.entity.AppsModel
 import com.example.featuresapp.projectx.db.dao.UsageDao
+import com.example.featuresapp.projectx.utils.AppUtils.saveToDataStore
 import com.example.featuresapp.projectx.viewmodel.SaveViewModel
 import com.example.featuresapp.ui.theme.FeaturesAppTheme
 import com.example.featuresapp.viewmodel.SearchViewModel
@@ -45,7 +46,6 @@ class MainActivity : ComponentActivity() {
     private var showBs by mutableStateOf<Boolean>(false)
 
     @Inject lateinit var usageDao: UsageDao
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,20 +101,33 @@ class MainActivity : ComponentActivity() {
                     HomeScreen(
                         modifier = Modifier.padding(innerPadding),
                         usageData = usage,
-                        uiCallbacks = {it->
-                            (it as UiCallback.AddPackage)?.let {
-                                it.isSelected
-                                    val appsModel = AppsModel(packageName = it.name,
-                                        appName = it.name,
-                                        isBlocked = it.isSelected
-                                        )
-                                lifecycleScope.launch {
-                                    saveViewModel.addData(appsModel)
+                        uiCallbacks = { callback ->
+                            when (callback) {
+                                is UiCallback.AddPackage -> {
+                                    val isSelected = callback.isSelected
+                                    val appsModel = AppsModel(
+                                        packageName = callback.name,
+                                        appName = callback.name,
+                                        isBlocked = isSelected
+                                    )
+                                    lifecycleScope.launch {
+                                        saveViewModel.addData(appsModel)
+                                    }
+                                }
+
+                                is UiCallback.SaveRestrictedTime -> {
+                                    lifecycleScope.launch {
+                                        saveToDataStore(this@MainActivity, callback.restrictedTime) // Example of saving a new value
+                                    }
+                                }
+
+                                else -> {
                                 }
                             }
                         }
-                        //time = viewmodel.getTime()
                     )
+                        //time = viewmodel.getTime()
+
 
 //                    Column(
 //
